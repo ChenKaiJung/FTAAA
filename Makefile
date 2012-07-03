@@ -5,7 +5,7 @@
 
 OSNAME=centos5
 
-DEFINES=-D_PRODUCTION
+DEFINES=
 
 
 TARGET=FTAAA.so
@@ -14,9 +14,8 @@ CC=g++
 
 RM=rm
 
-revision := $(shell svnversion|sed 's/[\:MS].*//')
 
-CFLAGS=-Wall -g -fPIC -I $(DEFINES) -DSVN_REVISION=$(revision) -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+CFLAGS=-Wall -g -fPIC -I $(DEFINES) -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 
 LDFLAGS=-lpthread  -shared -fPIC
 
