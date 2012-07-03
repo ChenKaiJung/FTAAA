@@ -20,8 +20,8 @@ using namespace std;
 
 #define MAX_CONNECTION 10
 
-string g_OAuthUrl="http://61.67.137.215:11279/AAAService/services/OAuthService";
-string g_BSWSUrl="http://61.67.137.215:11279/AAAService/services/BillingService";
+string g_OAuthUrl="http://YOUR_DOMAIN:YOUR_PORT/YOUR_AUTH_SERVICE";
+string g_BSWSUrl="http://YOUR_DOMAIN:YOUR_PORT/YOUR_BILLING_SERVICE";
 
 string g_Client_Id ="";
 string g_Client_Secret="";
@@ -64,12 +64,12 @@ bool FTAAAInit()
 	if(ret==0) g_MaxConn=MAX_CONNECTION;
 	else g_MaxConn=atoi(Buffer);
 
-	ret=GetPrivateProfileString("INIT", "OAUTH_URL","http://61.67.137.215:11279/AAAService/services/OAuthService", Buffer, sizeof(Buffer), dir);
-	if(ret==0) g_OAuthUrl="http://61.67.137.215:11279/BSWS/services/OAuthService";
+	ret=GetPrivateProfileString("INIT", "OAUTH_URL","http://YOUR_DOMAIN:YOUR_PORT/YOUR_AUTH_SERVICE", Buffer, sizeof(Buffer), dir);
+	if(ret==0) g_OAuthUrl="http://YOUR_DOMAIN:YOUR_PORT/YOUR_AUTH_SERVICE";
 	else g_OAuthUrl=Buffer;
 
-	ret=GetPrivateProfileString("INIT", "BSWS_URL","http://61.67.137.215:11279/AAAService/services/BillingService", Buffer, sizeof(Buffer), dir);
-	if(ret==0) g_BSWSUrl="http://61.67.137.215:11279/BSWS/services/BillingService";
+	ret=GetPrivateProfileString("INIT", "BSWS_URL","http://YOUR_DOMAIN:YOUR_PORT/YOUR_BILLING_SERVICE", Buffer, sizeof(Buffer), dir);
+	if(ret==0) g_BSWSUrl="http://YOUR_DOMAIN:YOUR_PORT/YOUR_BILLING_SERVICE";
 	else g_BSWSUrl=Buffer;
 
 	//Client Id for Facebook's AppID
@@ -105,9 +105,7 @@ bool RequestOAuthToken(const RequestOAuthTokenReq *req,RequestOAuthTokenResult *
 	if(ret==0) result->ERROR_CODE=104;
 	result->ERROR_CODE = atoi(Buffer);
 	ret=GetPrivateProfileString("RequestOAuthTokenResult", "OAUTH_ERROR",NULL, result->OAUTH_ERROR, OAUTH_ERROR_LENGTH, dir);
-	// qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u
 	ret=GetPrivateProfileString("RequestOAuthTokenResult", "OAUTH_ACCESS_TOKEN","qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u", result->OAUTH_ACCESS_TOKEN, OAUTH_TOKEN_LENGTH, dir);
-	// qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u
 	ret=GetPrivateProfileString("RequestOAuthTokenResult", "OAUTH_REFRESH_TOKEN","qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u", result->OAUTH_REFRESH_TOKEN, OAUTH_TOKEN_LENGTH, dir);
 	
 	ret=GetPrivateProfileString("RequestOAuthTokenResult", "XOAUTH_ACCESS_TOKEN_EXPIRE_TIME_STAMP","3600", Buffer, sizeof(Buffer), dir);	
@@ -137,9 +135,7 @@ bool RefreshOAuthToken(const RefreshOAuthTokenReq *req,RefreshOAuthTokenResult *
 	if(ret==0) result->ERROR_CODE=104;
 	result->ERROR_CODE = atoi(Buffer);
 	ret=GetPrivateProfileString("RefreshOAuthTokenResult", "OAUTH_ERROR",NULL, result->OAUTH_ERROR, OAUTH_ERROR_LENGTH, dir);
-	// qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u
 	ret=GetPrivateProfileString("RefreshOAuthTokenResult", "OAUTH_ACCESS_TOKEN","qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u", result->OAUTH_ACCESS_TOKEN, OAUTH_TOKEN_LENGTH, dir);
-	// qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u
 	ret=GetPrivateProfileString("RefreshOAuthTokenResult", "OAUTH_REFRESH_TOKEN","qrcikpf4tvilqauulb6csvso7a5pryakkvjvffzuu7gyluecid7ht2livaq2ipuvoxsy56thqollycwnhiusbkwdmzxpjoxcebaskd3jmyiscob3crl4nd5ao3wbcr3ddlvalabvtkgqjmpkhogsrt7p3u", result->OAUTH_REFRESH_TOKEN, OAUTH_TOKEN_LENGTH, dir);
 
 	ret=GetPrivateProfileString("RefreshOAuthTokenResult", "XOAUTH_ACCESS_TOKEN_EXPIRE_TIME_STAMP","3600", Buffer, sizeof(Buffer), dir);	
@@ -174,7 +170,6 @@ bool GetUserProfile(const GetUserProfileReq *req,GetUserProfileResult *result)
 	result->ERROR_CODE = atoi(Buffer);
 	ret=GetPrivateProfileString("GetUserProfileResult", "OAUTH_ERROR",NULL, result->OAUTH_ERROR, OAUTH_ERROR_LENGTH, dir);
 
-//	ret=GetPrivateProfileString("GetUserProfileResult", "SERVICE_ACCOUNT",NULL, result->SERVICE_ACCOUNT, SERVICE_ACCOUNT_LENGTH, dir);	
 	ret=GetPrivateProfileString("GetUserProfileResult", "SERVICE_ACCOUNT_SQ","0", Buffer, sizeof(Buffer), dir);
 	result->SERVICE_ACCOUNT_SQ = atoi(Buffer);
 	ret=GetPrivateProfileString("GetUserProfileResult", "USER_PROFILE",NULL, result->USER_PROFILE, USER_PROFILE_LENGTH, dir);	
